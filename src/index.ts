@@ -24,7 +24,7 @@ app.post("/create-thumbnail", async (req, res) => {
     //this logic will use the image stored in the output directory and then delelete it, but in production we would use buffer data
     const imageUrl = await uploadToGCS();
     console.log(imageUrl);
-    res.status(200).send({ status: "ok" });
+    res.status(200).send({ url: imageUrl });
   } catch (err) {
     console.error(err);
     res

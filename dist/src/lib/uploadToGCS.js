@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadToGCS = void 0;
 const storage_1 = require("@google-cloud/storage");
+const fs_1 = __importDefault(require("fs"));
 const uuid_1 = require("uuid");
 // const credentials = {
 //   type: process.env.type,
@@ -19,7 +23,7 @@ const uuid_1 = require("uuid");
 const serviceAccountBuffer = Buffer.from(process.env.encoded_service_account_key, "base64").toString("utf8");
 const credentials = JSON.parse(serviceAccountBuffer);
 const projectId = process.env.project_id;
-// console.log(credentials.private_key);
+console.log(credentials);
 const storage = new storage_1.Storage({ projectId, credentials });
 const bucketName = process.env.bucket_name;
 console.log(bucketName);
@@ -32,6 +36,8 @@ const uploadToGCS = async () => {
     });
     // console.log(credentials);
     console.log(`${fileName} uploaded to ${bucket.name}.`);
+    //delete the file from the output directory
+    fs_1.default.unlinkSync(filePath);
     // return `https://storage.googleapis.com/`;
     return `https://storage.cloud.google.com/${bucket.name}/${fileName}`;
 };

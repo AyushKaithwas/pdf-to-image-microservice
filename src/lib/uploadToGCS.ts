@@ -1,5 +1,5 @@
 import { Storage } from "@google-cloud/storage";
-
+import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 
 // const credentials = {
@@ -23,11 +23,11 @@ const serviceAccountBuffer = Buffer.from(
 
 const credentials = JSON.parse(serviceAccountBuffer);
 const projectId = process.env.project_id;
-// console.log(credentials.private_key);
+// console.log(credentials);
 
 const storage = new Storage({ projectId, credentials });
 const bucketName = process.env.bucket_name;
-console.log(bucketName);
+// console.log(bucketName);
 const bucket = storage.bucket(bucketName);
 export const uploadToGCS = async () => {
   const filePath = "./output/untitled.1.png";
@@ -38,7 +38,8 @@ export const uploadToGCS = async () => {
 
   // console.log(credentials);
   console.log(`${fileName} uploaded to ${bucket.name}.`);
-
+  //delete the file from the output directory
+  fs.unlinkSync(filePath);
   // return `https://storage.googleapis.com/`;
   return `https://storage.cloud.google.com/${bucket.name}/${fileName}`;
 };
