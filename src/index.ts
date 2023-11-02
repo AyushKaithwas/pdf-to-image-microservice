@@ -13,7 +13,6 @@ app.use(express.json());
 app.post("/create-thumbnail", async (req, res) => {
   try {
     const url = req.body.pdfUrl;
-
     const response = await fetch(url); // Fetch the PDF
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
