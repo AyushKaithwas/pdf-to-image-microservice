@@ -1,8 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
-// Import the node-fetch package
-import { pdfToImage } from "./lib/pdfToPic"; // Adjust this path as needed
+import { pdfToImage } from "./lib/pdfToPic";
 import { uploadToGCS } from "./lib/uploadToGCS";
 
 const app = express();
